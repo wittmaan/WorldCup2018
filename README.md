@@ -1,4 +1,4 @@
-## WorldCup2018
+## WorldCup2018 Prediction
 
 According to this [approach](https://econpapers.repec.org/paper/innwpaper/2014-17.htm)
 here is my attempt to do some predictions for the FIFA World Cup 2018:
