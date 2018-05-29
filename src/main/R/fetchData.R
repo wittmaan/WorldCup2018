@@ -50,9 +50,18 @@ providerNames <- colnames(dataRawOdds)[-1]
 
 dataRawOdds[, (providerNames) := lapply(.SD, function(x) {
   lapply(x, function(y) {
-    eval(parse(text = y))
+    if (nchar(y) > 0) {
+      eval(parse(text = y)) 
+    } else {
+      NA
+    }
   }) %>% unlist()
 }), .SDcols = providerNames]
+
+
+## skip bookmakers without entries
+dataRawOdds <- dataRawOdds[, which(colSums(is.na(dataRawOdds)) < nrow(dataRawOdds)), with=FALSE]
+
 
 result[team=="IR Iran"]$team <- "Iran"
 result[team=="Korea Republic"]$team <- "South Korea"

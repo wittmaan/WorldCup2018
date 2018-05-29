@@ -2,7 +2,7 @@
 library(data.table)
 library(dplyr)
 
-dat <- fread("bettingOdds20180515.csv")
+dat <- fread("bettingOdds20180529.csv")
 
 calcOdds <- function(quotedOdds, delta=1) {
   (quotedOdds - 1) / delta
@@ -15,11 +15,11 @@ calcProbs <- function(quotedOdds, delta=1) {
 
 deltaOpt <- dat[, lapply(.SD, function(quotedOdds) {
   deltaOpt <- uniroot(function(delta) {
-    sum(calcProbs(quotedOdds, delta)) - 1
+    sum(calcProbs(quotedOdds, delta), na.rm = TRUE) - 1
   }, interval = c(0.0001, 1.0))$root
   
   #deltaOpt <- optim(0.0001, function(delta) {
-  #  (sum(calcProbs(quotedOdds, delta)) - 1)^2
+  #  (sum(calcProbs(quotedOdds, delta), na.rm = TRUE) - 1)^2
   #}, method = "Brent", lower = 0.0001, upper = 1.0)$par
   
   deltaOpt
@@ -36,9 +36,9 @@ logit <- function(x) log(x/(1-x))
 invLogit <- function(p) { exp(p) / (1 + exp(p)) }
 
 
-dat[, logOdds := rowMeans(logit(probs))]
+dat[, logOdds := rowMeans(logit(probs), na.rm = TRUE)]
 dat[, probabilities := invLogit(logOdds)]
 
-fwrite(dat[, .(code, group, logOdds, probabilities)], "probabilites20180515.csv", sep = ";")
+fwrite(dat[, .(code, group, logOdds, probabilities)], "probabilites20180529.csv", sep = ";")
 
 
