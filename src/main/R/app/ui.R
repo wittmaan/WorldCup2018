@@ -35,7 +35,7 @@ shinyUI(navbarPage(
                   <a href="http://econpapers.repec.org/paper/innwpaper/2016-15.htm">Zeileis A, Leitner C, Hornik K (2016): Predictive Bookmaker Consensus Model for the UEFA Euro 2016</a>'))),
   tabPanel('Betting Odds',
            p(HTML('Betting odds from 22 online bookmakers for the 32 teams in the FIFA World Cup 2018. 
-              They are obtained on 2018-05-15 from <a href="https://www.oddschecker.com/football/world-cup/winner">https://www.oddschecker.com/football/world-cup/winner</a>')),
+              They are obtained on 2018-06-11 from <a href="https://www.oddschecker.com/football/world-cup/winner">https://www.oddschecker.com/football/world-cup/winner</a>')),
            DT::dataTableOutput('odds')),
   tabPanel('Pairwise Comparisons',
            p('Winning probabilities in pairwise comparisons of all FIFA World Cup 2018 teams.'), 
